@@ -1,0 +1,75 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Autor {
+  id: Int!
+  nome: String!
+  sobre: String!
+}
+
+type OpcaoCompra {
+  id: Int!
+  titulo: String!
+  formatos: [String!]
+  preco: Float!
+}
+
+type Tag {
+  id: Int!
+  nome: String!
+}
+
+type Livro {
+  id: Int!
+  autorId: Int!
+  categoriaId: Int!
+  titulo: String!
+  slug: String!
+  descricao: String!
+  isbn: String!
+  numeroPaginas: Float!
+  publicacao: String!
+  imagemCapa: String!
+  sobre: String!
+  opcoesCompra: [OpcaoCompra!]!
+  tags: [Tag!]!
+  autor: Autor!
+}
+
+type ItemCarrinho {
+  quantidade: Float!
+  livroId: Float!
+  opcaoCompraId: Float!
+  opcaoCompra: OpcaoCompra!
+  livro: Livro!
+}
+
+type Carrinho {
+  total: Float!
+  itens: [ItemCarrinho!]!
+}
+
+type Categoria {
+  id: Int!
+  nome: String!
+  slug: String!
+}
+
+type Query {
+  categorias: [Categoria!]!
+  livros(titulo: String, categoriaId: Int): [Livro!]!
+  livro(slug: String!): Livro!
+  carrinho: Carrinho!
+}
+
+type Mutation {
+  adicionarItem(item: ItemCarrinhoInput!): Boolean!
+  removerItem(item: ItemCarrinhoInput!): Boolean!
+}
+
+input ItemCarrinhoInput {
+  livroId: Float!
+  opcaoCompraId: Float!
+  quantidade: Float
+}
