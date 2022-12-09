@@ -37,6 +37,11 @@ type Livro {
   autor: Autor!
 }
 
+type Destaques {
+  lancamentos: [Livro!]!
+  maisVendidos: [Livro!]!
+}
+
 type ItemCarrinho {
   quantidade: Float!
   livroId: Float!
@@ -60,6 +65,7 @@ type Query {
   categorias: [Categoria!]!
   livros(titulo: String, categoriaId: Int): [Livro!]!
   livro(slug: String!): Livro!
+  destaques: Destaques!
   carrinho: Carrinho!
 }
 

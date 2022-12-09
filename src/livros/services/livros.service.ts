@@ -1,11 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosRequestConfig } from 'axios';
 import { http } from 'src/common/http';
+import { Destaques } from '../models/destaques.mode';
 import { Livro } from '../models/livro.model';
 import { Tag } from '../models/tag.model';
 
 @Injectable()
 export class LivrosService {
+  async buscarDestaques(): Promise<Destaques> {
+    const lancamentos = await http.get('/public/lancamentos');
+    const maisVendidos = await http.get('/public/mais-vendidos');
+    return {
+      lancamentos: lancamentos.data,
+      maisVendidos: maisVendidos.data,
+    };
+  }
   async buscarTodos(titulo?: string, categoriaId?: number) {
     const config: AxiosRequestConfig = {};
     if (categoriaId > 0) {

@@ -11,6 +11,7 @@ import { AutoresService } from 'src/autores/services/autor.service';
 import { Livro } from '../models/livro.model';
 import { LivrosService } from '../services/livros.service';
 import { Tag } from '../models/tag.model';
+import { Destaques } from '../models/destaques.mode';
 
 @Resolver((of) => Livro)
 export class LivrosResolver {
@@ -33,6 +34,11 @@ export class LivrosResolver {
     @Args('slug', { type: () => String, nullable: false }) slug: string,
   ): Promise<Livro> {
     return this.livrosService.buscarPorSlug(slug);
+  }
+
+  @Query((returns) => Destaques)
+  async destaques(): Promise<Destaques> {
+    return this.livrosService.buscarDestaques();
   }
 
   @ResolveField('autor', (returns) => Autor)

@@ -114,7 +114,7 @@ server.get('/public/lancamentos', (req, res) => {
       publicacao: '2018-05-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/bootstrap4.png',
-      autor: 4,
+      autorId: 4,
       opcoesCompra: [
         {
           id: 1,
@@ -148,7 +148,7 @@ server.get('/public/lancamentos', (req, res) => {
       publicacao: '2017-08-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/cangaceirojavascript.png',
-      autor: 5,
+      autorId: 5,
       opcoesCompra: [
         {
           id: 1,
@@ -183,7 +183,7 @@ server.get('/public/lancamentos', (req, res) => {
       publicacao: '2015-06-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/css.png',
-      autor: 6,
+      autorId: 6,
       opcoesCompra: [
         {
           id: 1,
@@ -222,7 +222,7 @@ server.get('/public/mais-vendidos', (req, res) => {
       publicacao: '2020-04-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/acessibilidade.png',
-      autor: 1,
+      autorId: 1,
       opcoesCompra: [
         {
           id: 1,
@@ -257,7 +257,7 @@ server.get('/public/mais-vendidos', (req, res) => {
       publicacao: '2019-11-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/angular.png',
-      autor: 2,
+      autorId: 2,
       opcoesCompra: [
         {
           id: 1,
@@ -291,7 +291,7 @@ server.get('/public/mais-vendidos', (req, res) => {
       publicacao: '2021-10-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/arquitetura.png',
-      autor: 3,
+      autorId: 3,
       opcoesCompra: [
         {
           id: 1,
