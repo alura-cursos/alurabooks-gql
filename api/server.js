@@ -39,15 +39,19 @@ function emailExiste(email) {
 server.post('/public/registrar', (req, res) => {
   const { email, senha, nome, endereco, complemento, cep } = req.body;
 
+  console.log('body', req.body);
+
   if (emailExiste(email)) {
+    console.log('emailExiste', email);
     const status = 401;
     const message = 'E-mail já foi utilizado!';
     res.status(status).json({ status, message });
     return;
   }
 
-  fs.readFile('./usuarios.json', (err, data) => {
+  fs.readFile('./api/usuarios.json', (err, data) => {
     if (err) {
+      console.log('err on readFile', err);
       const status = 401;
       const message = err;
       res.status(status).json({ status, message });
@@ -68,8 +72,9 @@ server.post('/public/registrar', (req, res) => {
       complemento,
       cep,
     });
-    fs.writeFile('./usuarios.json', JSON.stringify(json), (err) => {
+    fs.writeFile('./api/usuarios.json', JSON.stringify(json), (err) => {
       if (err) {
+        console.log('err on writeFile', err);
         const status = 401;
         const message = err;
         res.status(status).json({ status, message });
@@ -80,6 +85,7 @@ server.post('/public/registrar', (req, res) => {
   });
 
   const access_token = createToken({ email, senha });
+  console.log('access_token', access_token);
   res.status(200).json({ access_token });
 });
 
@@ -320,32 +326,33 @@ server.get('/public/mais-vendidos', (req, res) => {
 server.use(
   /^(?!\/(public|livros|autores|categorias|carrinho|tags)).*$/,
   (req, res, next) => {
-  if (
-    req.headers.authorization === undefined ||
-    req.headers.authorization.split(' ')[0] !== 'Bearer'
-  ) {
-    const status = 401;
-    const message = 'Token inválido';
-    res.status(status).json({ status, message });
-    return;
-  }
-  try {
-    let verifyTokenResult;
-    verifyTokenResult = verifyToken(req.headers.authorization.split(' ')[1]);
-
-    if (verifyTokenResult instanceof Error) {
+    if (
+      req.headers.authorization === undefined ||
+      req.headers.authorization.split(' ')[0] !== 'Bearer'
+    ) {
       const status = 401;
-      const message = 'Token de autenticação não encontrado';
+      const message = 'Token inválido';
       res.status(status).json({ status, message });
       return;
     }
-    next();
-  } catch (err) {
-    const status = 401;
-    const message = 'Token revogado';
-    res.status(status).json({ status, message });
-  }
-});
+    try {
+      let verifyTokenResult;
+      verifyTokenResult = verifyToken(req.headers.authorization.split(' ')[1]);
+
+      if (verifyTokenResult instanceof Error) {
+        const status = 401;
+        const message = 'Token de autenticação não encontrado';
+        res.status(status).json({ status, message });
+        return;
+      }
+      next();
+    } catch (err) {
+      const status = 401;
+      const message = 'Token revogado';
+      res.status(status).json({ status, message });
+    }
+  },
+);
 
 server.use(router);
 
